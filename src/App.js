@@ -1,14 +1,10 @@
 import * as React from "react";
 import "./App.css";
-import {
-  registerToSelectionChange,
-  getRewriteResults,
-} from "./lib/editorUtils";
+import { getRewriteResults } from "./lib/editorUtils";
 
 function App() {
   const [suggestions, setSuggestion] = React.useState(null);
-  const [selectedText, setSelectedText] = React.useState("");
-  const [coords, setCoords] = React.useState({ top: 0, right: 0 });
+  const [coords, setCoords] = React.useState();
 
   return (
     <div className="App">
@@ -19,6 +15,7 @@ function App() {
             const suggestions = await getRewriteResults(selection).catch(() =>
               console.error("error")
             );
+
             setCoords(window.getSelection().getRangeAt(0).getClientRects()[0]);
             setSuggestion(suggestions);
 
